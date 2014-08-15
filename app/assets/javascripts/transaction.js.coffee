@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  reports = $(".report").reverse()
+  reports = $($(".report").get().reverse())
   categories = reports.map ->
     $(this).find('.date').text()
   initiated = reports.map ->
