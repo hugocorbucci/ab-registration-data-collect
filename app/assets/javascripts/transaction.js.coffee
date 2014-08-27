@@ -5,7 +5,7 @@
 $ ->
   reports = $($(".report").get().reverse())
   categories = reports.map ->
-    $(this).find('.date').text()
+    $(this).find('.date').data('date')
   initiated = reports.map ->
     parseInt($(this).find('.initiated').text(), 10)
   open = reports.map ->

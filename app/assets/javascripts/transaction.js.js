@@ -3,7 +3,7 @@ $(function() {
   var available, cancelled, categories, in_analysis, in_dispute, initiated, open, paid, refunded, reports;
   reports = $($(".report").get().reverse());
   categories = reports.map(function() {
-    return $(this).find('.date').text();
+    return $(this).find('.date').data('date');
   });
   initiated = reports.map(function() {
     return parseInt($(this).find('.initiated').text(), 10);
