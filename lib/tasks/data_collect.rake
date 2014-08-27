@@ -12,7 +12,7 @@ namespace :data_collect do
 
     intervals = (0..MAX_DATE_IN_THE_PAST).step(MAX_INTERVAL_STEP).to_a.reverse
     reports = intervals.map do |start|
-      PagSeguro::Transaction.find_by_date(starts_at: start.days.ago, ends_at: (start + MAX_INTERVAL_STEP).days.ago - 1.second)
+      PagSeguro::Transaction.find_by_date(starts_at: (start + MAX_INTERVAL_STEP).days.ago, ends_at: start.days.ago - 1.second)
     end
 
     transaction_ab = AB_Transaction.new
