@@ -29,7 +29,7 @@
       <tbody>
           <tr class='report'>
             <td class='count'><%= index + 1 %></td>
-            <td class='date' data-date='<%= l transaction.date %>'><%= l transaction.date, format: :long %></td>
+            <td class='date' data-date='<%= l transaction.date, format: :default %>'><%= l transaction.date, format: :long %></td>
             <td class='initiated'><%= transaction.qtd_initiated %></td>
             <td class='open'><%= transaction.qtd_open %></td>
             <td class='available'><%= transaction.qtd_available %></td>
