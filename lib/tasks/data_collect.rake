@@ -1,7 +1,7 @@
 namespace :data_collect do
-
+  MAX_INTERVAL_STEP = 30
+  MAX_DATE_IN_THE_PAST = 180
   desc 'Generate AgileBrazil registration report'
-
   task collect: :environment do
 
     credential = Credentials.first
@@ -10,10 +10,13 @@ namespace :data_collect do
       config.email = credential.email
     end
 
-    report = PagSeguro::Transaction.find_by_date(:starts_at => 150.days.ago, :ends_at => 1.minute.ago)
+    intervals = (0..MAX_DATE_IN_THE_PAST).step(MAX_INTERVAL_STEP).to_a.reverse
+    reports = intervals.map do |start|
+      PagSeguro::Transaction.find_by_date(starts_at: start.days.ago, ends_at: (start + MAX_INTERVAL_STEP).days.ago - 1.second)
+    end
 
     transaction_ab = AB_Transaction.new
-    transaction_ab.count_statuses report
+    transaction_ab.count_statuses reports
     transaction_ab.save!
 
     p 'Report generated'

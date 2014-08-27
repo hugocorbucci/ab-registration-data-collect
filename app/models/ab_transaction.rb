@@ -13,8 +13,16 @@ class AB_Transaction
   field :qtd_in_dispute, type: Integer, default: 0
   field :qtd_refunded, type: Integer, default: 0
 
-  def count_statuses(report)
+  def count_statuses(reports)
     self.date = Time.now
+    Array(reports).each do |report|
+      count_statuses_for(report)
+    end
+  end
+
+  private
+
+  def count_statuses_for(report)
     while report.next_page?
       report.next_page!
       report.transactions.each do |transaction|
